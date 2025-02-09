@@ -1,63 +1,99 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Fish, ShoppingBag, Youtube } from 'lucide-react';
 import { LatestArticles } from '../components/LatestArticles';
 
 export default function HomePage() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <section className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-[#2A5F8A] mb-4">
-          Bienvenue sur UltralightFishingPro
-        </h1>
-        <p className="text-xl text-gray-600 mb-8">
-          Votre guide expert pour la pêche ultra-light et le rockfishing
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Link
-            to="/guides"
-            className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section avec vidéo en arrière-plan */}
+      <header className="relative h-[600px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
           >
-            <h2 className="text-2xl font-semibold text-[#2A5F8A] mb-4">Guides</h2>
-            <p className="text-gray-600 mb-4">
-              Découvrez nos guides complets sur l'ajing et le rockfishing
-            </p>
-            <span className="text-[#2A5F8A] flex items-center justify-center">
-              En savoir plus <ArrowRight className="ml-2" />
-            </span>
-          </Link>
-          <Link
+            <source 
+              src="https://fjyyotvzlolbkgvobbhe.supabase.co/storage/v1/object/public/images/Standard_Mode_16x9_Une_sc_ne_immersive_en_bord_de_m.mp4" 
+              type="video/mp4" 
+            />
+          </video>
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        </div>
+        
+        <div className="relative z-10 text-center px-4">
+          <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">
+            Pêche Ultra Light en Bord de Mer
+          </h1>
+          <p className="text-xl text-white mb-8 max-w-2xl mx-auto drop-shadow-md">
+            Découvrez les meilleures techniques d'ajing et de rockfishing avec nos guides experts
+          </p>
+          <Link 
             to="/materiel"
-            className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+            className="bg-[#4CAF50] text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-[#45a049] transition-colors inline-block shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
           >
-            <h2 className="text-2xl font-semibold text-[#2A5F8A] mb-4">Matériel</h2>
-            <p className="text-gray-600 mb-4">
-              Le meilleur équipement pour la pêche ultra-light
-            </p>
-            <span className="text-[#2A5F8A] flex items-center justify-center">
-              Découvrir <ArrowRight className="ml-2" />
-            </span>
+            Découvrir le Matériel
           </Link>
-          <Link
-            to="/videos"
-            className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+        </div>
+      </header>
+
+      {/* Features Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          <Link 
+            to="/guides"
+            className="group bg-white p-8 rounded-xl shadow-lg text-center block transform transition-all duration-200 hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50"
           >
-            <h2 className="text-2xl font-semibold text-[#2A5F8A] mb-4">Vidéos</h2>
-            <p className="text-gray-600 mb-4">
-              Tutoriels et sessions de pêche en vidéo
+            <div className="mb-4 flex justify-center">
+              <Fish className="w-8 h-8 text-[#2A5F8A] group-hover:text-[#4CAF50] transition-colors" />
+            </div>
+            <h3 className="text-xl font-semibold mb-4 group-hover:text-[#4CAF50] transition-colors">
+              Guides Techniques
+            </h3>
+            <p className="text-gray-600">
+              Apprenez les meilleures techniques de pêche ultra-light avec nos experts
             </p>
-            <span className="text-[#2A5F8A] flex items-center justify-center">
-              Voir les vidéos <ArrowRight className="ml-2" />
-            </span>
+          </Link>
+          <Link 
+            to="/materiel"
+            className="group bg-white p-8 rounded-xl shadow-lg text-center block transform transition-all duration-200 hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50"
+          >
+            <div className="mb-4 flex justify-center">
+              <ShoppingBag className="w-8 h-8 text-[#2A5F8A] group-hover:text-[#4CAF50] transition-colors" />
+            </div>
+            <h3 className="text-xl font-semibold mb-4 group-hover:text-[#4CAF50] transition-colors">
+              Comparatifs Matériel
+            </h3>
+            <p className="text-gray-600">
+              Trouvez le meilleur équipement adapté à votre style de pêche
+            </p>
+          </Link>
+          <Link 
+            to="/videos"
+            className="group bg-white p-8 rounded-xl shadow-lg text-center block transform transition-all duration-200 hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50"
+          >
+            <div className="mb-4 flex justify-center">
+              <Youtube className="w-8 h-8 text-[#2A5F8A] group-hover:text-[#4CAF50] transition-colors" />
+            </div>
+            <h3 className="text-xl font-semibold mb-4 group-hover:text-[#4CAF50] transition-colors">
+              Vidéos Tutoriels
+            </h3>
+            <p className="text-gray-600">
+              Regardez nos démonstrations en situation réelle
+            </p>
           </Link>
         </div>
       </section>
-      
-      <section className="mb-16">
-        <h2 className="text-3xl font-bold text-[#2A5F8A] mb-8 text-center">
-          Derniers Articles
-        </h2>
-        <LatestArticles />
+
+      {/* Latest Articles */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">Derniers Articles</h2>
+          <LatestArticles />
+        </div>
       </section>
     </div>
   );
