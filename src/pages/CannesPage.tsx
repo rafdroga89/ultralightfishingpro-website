@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Target, Fish, Scale } from 'lucide-react';
 
 export default function CannesPage() {
+  const [imageError, setImageError] = useState(false);
+  const mainImageUrl = encodeURI('https://fjyyotvzlolbkgvobbhe.supabase.co/storage/v1/object/public/images/cannes hero.jpg');
+  const fallbackImageUrl = 'https://fjyyotvzlolbkgvobbhe.supabase.co/storage/v1/object/public/images/hero.jpg';
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <header className="relative h-[60vh] md:h-[80vh] lg:h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://fjyyotvzlolbkgvobbhe.supabase.co/storage/v1/object/public/images/cannes%20hero.jpg"
+            src={imageError ? fallbackImageUrl : mainImageUrl}
             alt="Cannes à pêche ultra-light"
             className="w-full h-full object-cover"
             loading="eager"
             onError={(e) => {
-              console.error('Erreur de chargement de l\'image:', e);
-              e.currentTarget.style.display = 'none';
+              console.error('Erreur de chargement de l\'image principale, utilisation de l\'image de secours');
+              setImageError(true);
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"></div>
