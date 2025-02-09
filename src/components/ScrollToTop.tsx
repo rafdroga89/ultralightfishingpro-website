@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const { pathname } = useLocation();
 
   // Afficher le bouton quand on descend de 300px
   const toggleVisibility = () => {
@@ -27,6 +29,13 @@ export function ScrollToTop() {
       window.removeEventListener('scroll', toggleVisibility);
     };
   }, []);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, [pathname]);
 
   return (
     <>
