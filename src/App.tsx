@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
-import { Compass, Fish, Youtube, BookOpen, Mail, ShoppingBag, Anchor, Scissors, Search, ChevronDown, Facebook, Instagram, Video, ArrowRight } from 'lucide-react';
+import { Compass, Fish, Youtube, BookOpen, Mail, ShoppingBag, Anchor, Scissors, Search, ChevronDown, Facebook, Instagram, Video } from 'lucide-react';
 import Footer from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 import { ErrorFallback } from './components/ErrorBoundary';
+import HomePage from './pages/HomePage';
 import Guides from './pages/Guides';
 import AjingGuide from './pages/guides/Ajing';
 import LRFGuide from './pages/guides/LRF';
@@ -17,7 +18,6 @@ import Ligne from './pages/materiel/Ligne';
 import MentionsLegales from './pages/legal/MentionsLegales';
 import PolitiqueConfidentialite from './pages/legal/PolitiqueConfidentialite';
 import CGU from './pages/legal/CGU';
-import { LatestArticles } from './components/LatestArticles';
 
 function SearchBar() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -50,7 +50,7 @@ function SocialMediaButtons() {
         className="text-gray-600 hover:text-[#1877F2] transition-colors"
         aria-label="Suivez-nous sur Facebook"
       >
-        <Facebook className="w-5 h-5" />
+        <Facebook className="w-6 h-6" />
       </a>
       <a
         href="https://instagram.com"
@@ -59,7 +59,7 @@ function SocialMediaButtons() {
         className="text-gray-600 hover:text-[#E4405F] transition-colors"
         aria-label="Suivez-nous sur Instagram"
       >
-        <Instagram className="w-5 h-5" />
+        <Instagram className="w-6 h-6" />
       </a>
       <a
         href="https://youtube.com"
@@ -68,16 +68,7 @@ function SocialMediaButtons() {
         className="text-gray-600 hover:text-[#FF0000] transition-colors"
         aria-label="Suivez-nous sur YouTube"
       >
-        <Youtube className="w-5 h-5" />
-      </a>
-      <a
-        href="https://tiktok.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-600 hover:text-black transition-colors"
-        aria-label="Suivez-nous sur TikTok"
-      >
-        <Video className="w-5 h-5" />
+        <Video className="w-6 h-6" />
       </a>
     </div>
   );
@@ -86,61 +77,44 @@ function SocialMediaButtons() {
 function MaterialDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const isActive = (path: string) => location.pathname.startsWith(path);
+  const isMaterielPage = location.pathname.startsWith('/materiel');
 
   return (
-    <div 
-      className="relative"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
-      <Link
-        to="/materiel"
-        className={`flex items-center gap-2 text-sm font-medium ${
-          isActive('/materiel') ? 'text-[#2A5F8A]' : 'text-gray-600 hover:text-[#2A5F8A]'
+    <div className="relative group">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex items-center space-x-1 px-4 py-2 rounded-lg transition-colors ${
+          isMaterielPage ? 'text-[#2A5F8A]' : 'text-gray-600 hover:text-[#2A5F8A]'
         }`}
       >
-        <ShoppingBag className="w-4 h-4" />
-        Matériel
-        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-      </Link>
+        <span>Matériel</span>
+        <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
       
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg py-2 min-w-[200px] z-[9999]">
-          <Link 
+        <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+          <Link
             to="/materiel/cannes"
-            className={`flex items-center gap-2 px-4 py-2 text-sm ${
-              isActive('/materiel/cannes') ? 'text-[#2A5F8A] bg-gray-50' : 'text-gray-600 hover:text-[#2A5F8A] hover:bg-gray-50'
-            }`}
+            className="block px-4 py-2 text-gray-600 hover:text-[#2A5F8A] hover:bg-gray-50"
           >
-            <Compass className="w-4 h-4" />
             Cannes
           </Link>
-          <Link 
+          <Link
             to="/materiel/moulinets"
-            className={`flex items-center gap-2 px-4 py-2 text-sm ${
-              isActive('/materiel/moulinets') ? 'text-[#2A5F8A] bg-gray-50' : 'text-gray-600 hover:text-[#2A5F8A] hover:bg-gray-50'
-            }`}
+            className="block px-4 py-2 text-gray-600 hover:text-[#2A5F8A] hover:bg-gray-50"
           >
-            <Anchor className="w-4 h-4" />
             Moulinets
           </Link>
-          <Link 
+          <Link
             to="/materiel/leurres"
-            className={`flex items-center gap-2 px-4 py-2 text-sm ${
-              isActive('/materiel/leurres') ? 'text-[#2A5F8A] bg-gray-50' : 'text-gray-600 hover:text-[#2A5F8A] hover:bg-gray-50'
-            }`}
+            className="block px-4 py-2 text-gray-600 hover:text-[#2A5F8A] hover:bg-gray-50"
           >
-            <Fish className="w-4 h-4" />
             Leurres
           </Link>
-          <Link 
+          <Link
             to="/materiel/ligne"
-            className={`flex items-center gap-2 px-4 py-2 text-sm ${
-              isActive('/materiel/ligne') ? 'text-[#2A5F8A] bg-gray-50' : 'text-gray-600 hover:text-[#2A5F8A] hover:bg-gray-50'
-            }`}
+            className="block px-4 py-2 text-gray-600 hover:text-[#2A5F8A] hover:bg-gray-50"
           >
-            <Scissors className="w-4 h-4" />
             Ligne
           </Link>
         </div>
@@ -151,141 +125,46 @@ function MaterialDropdown() {
 
 function Header() {
   const location = useLocation();
-  const isActive = (path: string) => location.pathname === path;
-
+  
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md">
-      <div className="max-w-7xl mx-auto">
-        <div className="border-b border-gray-100">
-          <div className="flex items-center justify-between py-3 px-4">
-            <Link to="/" className="flex items-center gap-2">
-              <Fish className="w-8 h-8 text-[#2A5F8A]" />
-              <span className="text-xl font-bold text-[#2A5F8A]">UltralightFishingPro</span>
+    <header className="bg-white shadow-md">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <Link to="/" className="text-2xl font-bold text-[#2A5F8A]">
+            UltralightFishingPro
+          </Link>
+          
+          <nav className="hidden md:flex items-center space-x-4">
+            <Link
+              to="/guides"
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                location.pathname === '/guides'
+                  ? 'text-[#2A5F8A]'
+                  : 'text-gray-600 hover:text-[#2A5F8A]'
+              }`}
+            >
+              Guides
             </Link>
-            <nav className="hidden md:flex items-center gap-6">
-              <SearchBar />
-              <Link 
-                to="/guides" 
-                className={`flex items-center gap-2 text-sm font-medium ${
-                  isActive('/guides') ? 'text-[#2A5F8A]' : 'text-gray-600 hover:text-[#2A5F8A]'
-                }`}
-              >
-                <BookOpen className="w-4 h-4" />
-                Guides
-              </Link>
-              <MaterialDropdown />
-              <Link 
-                to="/videos" 
-                className={`flex items-center gap-2 text-sm font-medium ${
-                  isActive('/videos') ? 'text-[#2A5F8A]' : 'text-gray-600 hover:text-[#2A5F8A]'
-                }`}
-              >
-                <Youtube className="w-4 h-4" />
-                Vidéos
-              </Link>
-              <div className="h-6 w-px bg-gray-200 mx-2" />
-              <SocialMediaButtons />
-            </nav>
+            <MaterialDropdown />
+            <Link
+              to="/videos"
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                location.pathname === '/videos'
+                  ? 'text-[#2A5F8A]'
+                  : 'text-gray-600 hover:text-[#2A5F8A]'
+              }`}
+            >
+              Vidéos
+            </Link>
+          </nav>
+          
+          <div className="flex items-center space-x-4">
+            <SearchBar />
+            <SocialMediaButtons />
           </div>
         </div>
       </div>
     </header>
-  );
-}
-
-function HomePage() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section avec vidéo en arrière-plan */}
-      <header className="relative h-[600px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source 
-              src="https://fjyyotvzlolbkgvobbhe.supabase.co/storage/v1/object/public/images//Standard_Mode_16x9_Une_sc_ne_immersive_en_bord_de_m.mp4" 
-              type="video/mp4" 
-            />
-          </video>
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-        </div>
-        
-        <div className="relative z-10 text-center px-4">
-          <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">
-            Pêche Ultra Light en Bord de Mer
-          </h1>
-          <p className="text-xl text-white mb-8 max-w-2xl mx-auto drop-shadow-md">
-            Découvrez les meilleures techniques d'ajing et de rockfishing avec nos guides experts
-          </p>
-          <Link 
-            to="/materiel"
-            className="bg-[#4CAF50] text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-[#45a049] transition-colors inline-block shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-          >
-            Découvrir le Matériel
-          </Link>
-        </div>
-      </header>
-
-      {/* Features Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Link 
-            to="/guides"
-            className="group bg-white p-8 rounded-xl shadow-lg text-center block transform transition-all duration-200 hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50"
-          >
-            <div className="mb-4 flex justify-center">
-              <Fish className="w-8 h-8 text-[#2A5F8A] group-hover:text-[#4CAF50] transition-colors" />
-            </div>
-            <h3 className="text-xl font-semibold mb-4 group-hover:text-[#4CAF50] transition-colors">
-              Guides Techniques
-            </h3>
-            <p className="text-gray-600">
-              Apprenez les meilleures techniques de pêche ultra-light avec nos experts
-            </p>
-          </Link>
-          <Link 
-            to="/materiel"
-            className="group bg-white p-8 rounded-xl shadow-lg text-center block transform transition-all duration-200 hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50"
-          >
-            <div className="mb-4 flex justify-center">
-              <ShoppingBag className="w-8 h-8 text-[#2A5F8A] group-hover:text-[#4CAF50] transition-colors" />
-            </div>
-            <h3 className="text-xl font-semibold mb-4 group-hover:text-[#4CAF50] transition-colors">
-              Comparatifs Matériel
-            </h3>
-            <p className="text-gray-600">
-              Trouvez le meilleur équipement adapté à votre style de pêche
-            </p>
-          </Link>
-          <Link 
-            to="/videos"
-            className="group bg-white p-8 rounded-xl shadow-lg text-center block transform transition-all duration-200 hover:shadow-xl hover:-translate-y-1 hover:bg-gray-50"
-          >
-            <div className="mb-4 flex justify-center">
-              <Youtube className="w-8 h-8 text-[#2A5F8A] group-hover:text-[#4CAF50] transition-colors" />
-            </div>
-            <h3 className="text-xl font-semibold mb-4 group-hover:text-[#4CAF50] transition-colors">
-              Vidéos Tutoriels
-            </h3>
-            <p className="text-gray-600">
-              Regardez nos démonstrations en situation réelle
-            </p>
-          </Link>
-        </div>
-      </section>
-
-      {/* Latest Articles */}
-      <section className="bg-white py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Derniers Articles</h2>
-          <LatestArticles />
-        </div>
-      </section>
-    </div>
   );
 }
 
