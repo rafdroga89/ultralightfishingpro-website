@@ -12,6 +12,7 @@ import {
   Target
 } from 'lucide-react';
 import { LatestArticles } from '../components/LatestArticles';
+import { AdSense } from '../components/AdSense';
 
 export default function HomePage() {
   return (
@@ -124,6 +125,17 @@ export default function HomePage() {
               </div>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* AdSense Section */}
+      <section className="py-8 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <AdSense
+            client="pub-6202151362945703"
+            slot="1234567890"  // Remplacez par votre vrai slot ID
+            style={{ display: 'block', marginBottom: '20px' }}
+          />
         </div>
       </section>
 

@@ -18,6 +18,7 @@ import Ligne from './pages/materiel/Ligne';
 import MentionsLegales from './pages/legal/MentionsLegales';
 import PolitiqueConfidentialite from './pages/legal/PolitiqueConfidentialite';
 import CGU from './pages/legal/CGU';
+import CannesPage from './pages/CannesPage';
 
 function SearchBar() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -190,6 +191,7 @@ function App() {
           <Route path="/cgu" element={<CGU />} />
           <Route path="/error" element={<ErrorFallback />} />
           <Route path="*" element={<Navigate to="/error" replace />} />
+          <Route path="/materiel/cannes" element={<CannesPage />} />
         </Routes>
       </main>
       <Footer />
